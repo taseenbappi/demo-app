@@ -1,44 +1,40 @@
 import React from 'react';
-import { useState } from 'react';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import "../styles/Login.css";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import "../styles/Registration.css";
+import { userRegAction } from '../redux/actions/loginActions';
 
-const Login = () => {
-
+const Registration = () => {
     const navigate = useNavigate();
-    const { user } = useSelector(state => (state));
 
-    const login_schema = yup.object().shape({
+    const user = useSelector(state => console.log(state));
+    // console.log(user_register);
+    const dispatch = useDispatch();
+
+    const registration_schema = yup.object().shape({
         username: yup.string().required(),
         password: yup.string().required(),
     });
 
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm({
-        resolver: yupResolver(login_schema)
+        resolver: yupResolver(registration_schema)
     });
-
     const onSubmit = data => {
-
-        if (data.username === user?.username && data.password === user?.password) {
-            navigate("/");
-            reset();
-
-        } else {
-            alert("username and password error!!")
-        }
-
+        console.log(data);
+        dispatch(userRegAction(data))
+        navigate("/login");
+        // reset();
     };
 
     return (
         <div className='container-fluid'>
-            <div className="container" id='login-container'>
+            <div className="container" id='registration-container'>
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-12 col-lg-9 border rounded-3 py-5 px-5">
-                        <h1>Login</h1>
+                        <h1>Registration</h1>
                         <form className='row' onSubmit={handleSubmit(onSubmit)}>
 
                             <div className="col-12">
@@ -59,14 +55,14 @@ const Login = () => {
                             <div className=" text-center">
                                 <div className="mb-3">
 
-                                    <input type="submit" className="auth-btn " id="submit" value={"login"} />
+                                    <input type="submit" className="auth-btn " id="submit" value={"Submit"} />
                                 </div>
                             </div>
 
                         </form>
-                        Don’t have an account?
-                        <Link to={"/registration"}>
-                            Create an account
+                        Already have an account?
+                        <Link to={"/login"}>
+                            login here
                         </Link>
                     </div>
                 </div>
@@ -75,4 +71,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Registration;

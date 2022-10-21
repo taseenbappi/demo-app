@@ -1,4 +1,4 @@
-#login-container {
+#registration-container {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -7,7 +7,7 @@
 
 }
 
-#login-container h1 {
+#registration-container h1 {
     color: #202124;
     padding-bottom: 0;
     padding-top: 16px;
@@ -20,11 +20,11 @@
     word-break: break-word;
 }
 
-#login-container input:focus {
+#registration-container input:focus {
     border: 1px solid salmon;
 }
 
-#login-container .auth-btn {
+#registration-container .auth-btn {
     background-color: #111430;
     border: 0;
     border-radius: 5px;
